@@ -1,7 +1,15 @@
+import { useState } from 'react';
+import InputItem from './InputItem';
+
 const Form = () => {
+	const [options, setOptions] = useState({
+		lowercase_letters: true,
+		uppercase_letters: true,
+		special_letters: true,
+		numbers: true,
+	});
 	const labelClass =
 		'flex justify-between items-center p-2 font-semibold shadow-md transition-all hover:shadow-lg';
-	const checkboxClass = 'w-4 h-4 border-2 border-blue-500 rounded-sm bg-white';
 
 	return (
 		<form className='flex flex-col gap-4 p-5 rounded-md shadow-2xl min-w-full sm:w-[80vw] md:w-[50vw] lg:w-[40vw] bg-white'>
@@ -26,25 +34,30 @@ const Form = () => {
 				<input type='range' name='length' step={1} min={1} max={30} />
 			</label>
 
-			<label htmlFor='lowercase_letters' className={labelClass}>
-				Lowercase Letters
-				<input type='checkbox' name='lowercase_letters' className={checkboxClass} />
-			</label>
-
-			<label htmlFor='uppercase_letters' className={labelClass}>
-				Uppercase Letters
-				<input type='checkbox' name='uppercase_letters' className={checkboxClass} />
-			</label>
-
-			<label htmlFor='special_letters' className={labelClass}>
-				Special characters
-				<input type='checkbox' name='special_letters' className={checkboxClass} />
-			</label>
-
-			<label htmlFor='numbers' className={labelClass}>
-				Numbers
-				<input type='checkbox' name='numbers' className={checkboxClass} />
-			</label>
+			<InputItem
+				title='Lowercase Letters'
+				name='lowercase_letters'
+				checked={options.lowercase_letters}
+				setChecked={setOptions}
+			/>
+			<InputItem
+				title='Uppercase Letters'
+				name='uppercase_letters'
+				checked={options.uppercase_letters}
+				setChecked={setOptions}
+			/>
+			<InputItem
+				title='Special characters'
+				name='special_letters'
+				checked={options.special_letters}
+				setChecked={setOptions}
+			/>
+			<InputItem
+				title='Numbers'
+				name='numbers'
+				checked={options.numbers}
+				setChecked={setOptions}
+			/>
 
 			<input
 				type='submit'
