@@ -1,5 +1,6 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import InputItem from './InputItem';
+import { toast } from 'react-toastify';
 
 const Form = () => {
 	const [length, setLength] = useState(8);
@@ -10,6 +11,7 @@ const Form = () => {
 		special_letters: true,
 		numbers: true,
 	});
+	const inputRef = useRef<HTMLInputElement | null>(null);
 	const labelClass =
 		'flex justify-between items-center p-2 font-semibold shadow-md transition-all hover:shadow-lg';
 
@@ -17,6 +19,11 @@ const Form = () => {
 		(e: React.FormEvent) => {
 			e.preventDefault();
 			setPassword('');
+
+			if (Object.values(options).every(key => !key)) {
+				toast.error('Please select at least one option.');
+				return;
+			}
 
 			const smallLetters = 'abcdefghijklmnopqrstuvwxyz',
 				capitalLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
@@ -40,6 +47,14 @@ const Form = () => {
 		[length, options]
 	);
 
+	const copyToClipboard = () => {
+		if (navigator.clipboard) {
+			navigator.clipboard.writeText(password);
+			inputRef.current?.select();
+			toast.info('Password copied to clipboard.');
+		}
+	};
+
 	return (
 		<form
 			className='flex flex-col gap-4 p-5 rounded-md shadow-2xl min-w-full sm:w-[80vw] md:w-[50vw] lg:w-[40vw] bg-white'
@@ -51,11 +66,13 @@ const Form = () => {
 					className='p-2 flex-1 border-none shadow-md bg-blue-100 font-bold outline outline-none text-blue-800'
 					readOnly
 					value={password}
+					ref={inputRef}
 				/>
 				<button
 					type='button'
 					className='bg-blue-800 p-2 font-semibold text-white cursor-pointer shadow-md hover:bg-blue-900 disabled:bg-blue-200'
-					disabled={!password.length}>
+					disabled={!password.length}
+					onClick={copyToClipboard}>
 					Copy
 				</button>
 			</div>

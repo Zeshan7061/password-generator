@@ -1,6 +1,6 @@
-import 'react-toastify/dist/ReactToastify.css';
-import './App.css';
 import Form from './components/Form';
+import './App.css';
+import Toast from './components/Toast';
 
 function App() {
 	return (
@@ -9,6 +9,7 @@ function App() {
 				Password Generator App
 			</h1>
 
+			<Toast />
 			<Form />
 		</div>
 	);
