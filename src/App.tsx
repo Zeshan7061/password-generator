@@ -1,5 +1,4 @@
 import Form from './components/Form';
-import './App.css';
 import Toast from './components/Toast';
 
 function App() {

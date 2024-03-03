@@ -1,5 +1,5 @@
-const labelClass =
-	'flex justify-between items-center p-2 font-semibold shadow-md transition-all hover:shadow-lg';
+export const labelClass =
+	'flex justify-between items-center p-2 font-semibold shadow-md transition-all hover:shadow-lg hover:bg-blue-200 cursor-pointer active:scale-90';
 const checkboxClass = 'w-4 h-4 border-2 border-blue-500 rounded-sm bg-white';
 
 type Props = {
@@ -18,7 +18,15 @@ type Props = {
 
 const InputItem = ({ name, title, checked, setChecked }: Props) => {
 	return (
-		<label htmlFor={name} className={labelClass}>
+		<label
+			htmlFor={name}
+			className={labelClass}
+			onClick={() => {
+				setChecked(prevOpts => ({
+					...prevOpts,
+					[name]: !prevOpts[name],
+				}));
+			}}>
 			{title}
 			<input
 				type='checkbox'

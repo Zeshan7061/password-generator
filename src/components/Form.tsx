@@ -13,7 +13,7 @@ const Form = () => {
 	});
 	const inputRef = useRef<HTMLInputElement | null>(null);
 	const labelClass =
-		'flex justify-between items-center p-2 font-semibold shadow-md transition-all hover:shadow-lg';
+		'flex justify-between items-center p-2 font-semibold shadow-md transition-all hover:shadow-lg hover:bg-blue-200 cursor-pointer';
 
 	const generatePassword = useCallback(
 		(e: React.FormEvent) => {
@@ -70,7 +70,7 @@ const Form = () => {
 				/>
 				<button
 					type='button'
-					className='bg-blue-800 p-2 font-semibold text-white cursor-pointer shadow-md hover:bg-blue-900 disabled:bg-blue-200'
+					className='bg-blue-800 p-2 font-semibold text-white cursor-pointer shadow-md transition-all hover:bg-blue-900 disabled:bg-blue-200 active:scale-75'
 					disabled={!password.length}
 					onClick={copyToClipboard}>
 					Copy
@@ -117,11 +117,9 @@ const Form = () => {
 				setChecked={setOptions}
 			/>
 
-			<input
-				type='submit'
-				value='Generate Password'
-				className='p-2 mt-5 bg-blue-800 text-white cursor-pointer shadow-md font-semibold transition-all delay-200 hover:bg-blue-900'
-			/>
+			<button className='p-2 mt-5 bg-blue-800 text-white cursor-pointer shadow-md text-lg font-semibold transition-all hover:bg-blue-900 active:scale-75'>
+				Generate Password
+			</button>
 		</form>
 	);
 };
